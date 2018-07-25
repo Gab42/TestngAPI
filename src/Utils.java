@@ -1,20 +1,24 @@
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+
 public class Utils {
 
-    static String url = "http://api";
+    static String url = "http://api/";
     public static String loginUrl = url + "login";
 
 
-
-    public static HttpURLConnection openConn(String webAddress, String urlParameters) throws IOException {
-        URL url = new URL(webAddress);
+    // Open an HTTP connection to URL webAddress
+    public static HttpURLConnection openConn(String endpoint, String urlParameters) throws IOException {
+        URL url = new URL(endpoint);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
         conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -25,8 +29,35 @@ public class Utils {
         return conn;
     }
 
-    public static HttpURLConnection POST(String webAddress, String urlParameters) throws IOException {
+  /*  // GET data from API endpoint
+    public static HttpURLConnection GET(String webAddress, String urlParameters, String accessToken) throws IOException {
         HttpURLConnection conn = openConn(webAddress, urlParameters);
+
+        byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+        int postDataLength = postData.length;
+
+        conn.setDoOutput(true);
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+
+        try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+            wr.write(postData);
+        }
+
+        return conn;
+    }*/
+
+    // GET data from API endpoint 2
+    public static HttpURLConnection GET(String endpoint, String accessToken) throws IOException {
+        HttpURLConnection conn = openConn(endpoint, null);
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Authorization","Bearer "+accessToken);
+        return conn;
+    }
+
+    // POST data to API endpoint with parameters
+    public static HttpURLConnection POST(String endpoint, String urlParameters) throws IOException {
+        HttpURLConnection conn = openConn(endpoint, urlParameters);
 
         byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
         int postDataLength = postData.length;
@@ -42,11 +73,26 @@ public class Utils {
         return conn;
     }
 
-
-    public static HttpURLConnection login(String user, String password) throws Exception {
+    // Login in API
+    public static HttpURLConnection loginConnection(String user, String password) throws Exception {
         String urlParams = "grant_type=" + "password" + "&username=" + user + "&password=" + password;
         HttpURLConnection conn = Utils.POST(Utils.loginUrl, urlParams);
         return conn;
+    }
+
+    // Get access token after login
+    public static String getAccessToken(HttpURLConnection conn) throws IOException, JSONException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        StringBuilder sb = new StringBuilder();
+        String output;
+
+        while ((output = br.readLine()) != null) {
+            sb.append(output);
+        }
+
+        JSONObject json = new JSONObject(sb.toString());
+        String accessToken = json.getString("access_token");
+        return accessToken;
     }
 }
 

@@ -127,5 +127,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="java-json" level="project" />
   </component>
 </module>
