@@ -17,6 +17,12 @@ public class LoginTest {
         Assert.assertEquals(conn.getResponseCode(), 200);
     }
 
+    @Test
+    public void wrongPassword() throws Exception {
+        // Login
+        HttpURLConnection conn = Utils.loginConnection("ChgGabriela", "WrongPassword");
+        Assert.assertEquals(conn.getResponseCode(), 400);
+    }
 
 
 }

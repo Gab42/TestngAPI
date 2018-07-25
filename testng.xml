@@ -15,4 +15,9 @@
             <class name = "MessagesTest"/>
         </classes>
     </test>
+    <test name = "Payment">
+        <classes>
+            <class name = "PaymentTest"/>
+        </classes>
+    </test>
 </suite>
