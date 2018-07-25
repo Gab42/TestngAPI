@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Utils {
 
-    static String url = "http://url";
+    static String url = "http://api";
     public static String loginUrl = url + "login";
 
 
@@ -44,7 +44,8 @@ public class Utils {
 
 
     public static HttpURLConnection login(String user, String password) throws Exception {
-        HttpURLConnection conn = Utils.POST(Utils.loginUrl,"grant_type=" + password + "&username=" + user + "&password=Password.1" );
+        String urlParams = "grant_type=" + "password" + "&username=" + user + "&password=" + password;
+        HttpURLConnection conn = Utils.POST(Utils.loginUrl, urlParams);
         return conn;
     }
 }
