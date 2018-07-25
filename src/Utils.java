@@ -12,11 +12,34 @@ import java.nio.charset.StandardCharsets;
 
 public class Utils {
 
-    static String url = "http://api/";
+    static String url = "http://***/api/";
     public static String loginUrl = url + "login";
 
+    // GET response message from API endpoint 2
+    public static HttpURLConnection GET(String endpoint, String accessToken) throws IOException {
+        HttpURLConnection conn = openConn(endpoint, null);
+        conn.setRequestMethod("GET");
+        conn.setRequestProperty("Authorization","Bearer "+accessToken);
+        return conn;
+    }
 
-    // Open an HTTP connection to URL webAddress
+    // Login and get access token
+    public static String getAccessToken(String user, String password) throws Exception {
+        HttpURLConnection conn = loginConnection(user, password);
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        StringBuilder sb = new StringBuilder();
+        String output;
+
+        while ((output = br.readLine()) != null) {
+            sb.append(output);
+        }
+
+        JSONObject json = new JSONObject(sb.toString());
+        String accessToken = json.getString("access_token");
+        return accessToken;
+    }
+
+    // Open an HTTP connection to URL endPoint
     public static HttpURLConnection openConn(String endpoint, String urlParameters) throws IOException {
         URL url = new URL(endpoint);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -47,13 +70,7 @@ public class Utils {
         return conn;
     }*/
 
-    // GET data from API endpoint 2
-    public static HttpURLConnection GET(String endpoint, String accessToken) throws IOException {
-        HttpURLConnection conn = openConn(endpoint, null);
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Authorization","Bearer "+accessToken);
-        return conn;
-    }
+
 
     // POST data to API endpoint with parameters
     public static HttpURLConnection POST(String endpoint, String urlParameters) throws IOException {
@@ -73,27 +90,14 @@ public class Utils {
         return conn;
     }
 
-    // Login in API
+    // Login
     public static HttpURLConnection loginConnection(String user, String password) throws Exception {
         String urlParams = "grant_type=" + "password" + "&username=" + user + "&password=" + password;
         HttpURLConnection conn = Utils.POST(Utils.loginUrl, urlParams);
         return conn;
     }
 
-    // Get access token after login
-    public static String getAccessToken(HttpURLConnection conn) throws IOException, JSONException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        StringBuilder sb = new StringBuilder();
-        String output;
 
-        while ((output = br.readLine()) != null) {
-            sb.append(output);
-        }
-
-        JSONObject json = new JSONObject(sb.toString());
-        String accessToken = json.getString("access_token");
-        return accessToken;
-    }
 }
 
 
