@@ -29,31 +29,37 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <body>
 <table cellspacing=0 cellpadding=0 class="param">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
-<tr><td style="text-align:left;padding-right:2em">Payment</td><td class="numi">1</td><td class="numi">1</td><td class="numi">0</td><td class="numi">0</td><td class="numi">2.0 seconds</td><td class="numi"></td><td class="numi"></td></tr>
-<tr class="stripe"><td style="text-align:left;padding-right:2em">Messages</td><td class="numi">1</td><td class="numi">1</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0.4 seconds</td><td class="numi"></td><td class="numi"></td></tr>
-<tr><td style="text-align:left;padding-right:2em">Login</td><td class="numi">2</td><td class="numi">2</td><td class="numi">0</td><td class="numi">0</td><td class="numi">1.0 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Payment</td><td class="numi">3</td><td class="numi">3</td><td class="numi">0</td><td class="numi">0</td><td class="numi">29.0 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr class="stripe"><td style="text-align:left;padding-right:2em">Messages</td><td class="numi">1</td><td class="numi">1</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0.5 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr><td style="text-align:left;padding-right:2em">Login</td><td class="numi">3</td><td class="numi">3</td><td class="numi">0</td><td class="numi">0</td><td class="numi">1.3 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 <tr class="total"><td>Total</td>
-<td class="numi">4</td><td class="numi">4</td><td class="numi">0</td><td class="numi">0</td><td class="numi">3.4 seconds</td><td colspan="2">&nbsp;</td></tr>
+<td class="numi">7</td><td class="numi">7</td><td class="numi">0</td><td class="numi">0</td><td class="numi">30.7 seconds</td><td colspan="2">&nbsp;</td></tr>
 </table>
 <a id="summary"></a>
 <table cellspacing=0 cellpadding=0 class="passed">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
 <tr><th colspan="4">Payment &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="1">PaymentTest<td><a href="#m1"><b>makePayment</b>  </a></td><td class="numi">1</td><td class="numi">2012</td></tr>
+<tr class="passedodd"><td rowspan="3">PaymentTest<td><a href="#m1"><b>makePaymentWrongAccountNumber</b>  </a></td><td class="numi">1</td><td class="numi">1652</td></tr><tr class="passedodd"><td><a href="#m2"><b>makePaymentBiggerAmountThanBalance</b>  </a></td><td class="numi">1</td><td class="numi">2037</td></tr><tr class="passedodd"><td><a href="#m3"><b>makePaymentSuccessful</b>  </a></td><td class="numi">1</td><td class="numi">25278</td></tr>
 <tr><th colspan="4">Messages &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="1">MessagesTest<td><a href="#m2"><b>userHasMessages</b>  </a></td><td class="numi">1</td><td class="numi">370</td></tr>
+<tr class="passedodd"><td rowspan="1">MessagesTest<td><a href="#m4"><b>userHasMessages</b>  </a></td><td class="numi">1</td><td class="numi">473</td></tr>
 <tr><th colspan="4">Login &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="2">LoginTest<td><a href="#m3"><b>successfulLogin</b>  </a></td><td class="numi">1</td><td class="numi">676</td></tr><tr class="passedodd"><td><a href="#m4"><b>wrongPassword</b>  </a></td><td class="numi">1</td><td class="numi">332</td></tr>
+<tr class="passedodd"><td rowspan="3">LoginTest<td><a href="#m5"><b>successfulLogin</b>  </a></td><td class="numi">1</td><td class="numi">351</td></tr><tr class="passedodd"><td><a href="#m6"><b>wrongPassword</b>  </a></td><td class="numi">1</td><td class="numi">291</td></tr><tr class="passedodd"><td><a href="#m7"><b>nonExistentUser</b>  </a></td><td class="numi">1</td><td class="numi">590</td></tr>
 </table>
 <h1>Payment</h1>
-<a id="m1"></a><h2>PaymentTest:makePayment</h2>
+<a id="m1"></a><h2>PaymentTest:makePaymentWrongAccountNumber</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m2"></a><h2>PaymentTest:makePaymentBiggerAmountThanBalance</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m3"></a><h2>PaymentTest:makePaymentSuccessful</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 <h1>Messages</h1>
-<a id="m2"></a><h2>MessagesTest:userHasMessages</h2>
+<a id="m4"></a><h2>MessagesTest:userHasMessages</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 <h1>Login</h1>
-<a id="m3"></a><h2>LoginTest:successfulLogin</h2>
+<a id="m5"></a><h2>LoginTest:successfulLogin</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m4"></a><h2>LoginTest:wrongPassword</h2>
+<a id="m6"></a><h2>LoginTest:wrongPassword</h2>
+<p class="totop"><a href="#summary">back to summary</a></p>
+<a id="m7"></a><h2>LoginTest:nonExistentUser</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>

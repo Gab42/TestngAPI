@@ -2,27 +2,53 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 
 public class PaymentTest {
+    String user = "ChgDilyana";
+    String password = "Password.1";
+
 
     @Test
-    public void makePayment() throws Exception {
-        String accessToken = Utils.getAccessToken("ChgGabriela", "Password.1");
-        String ID = Utils.getID(accessToken);
+    public void makePaymentSuccessful() throws Exception {
+        String accessToken = Login.getAccessToken(user, password);
+        String portfolioID = AccountsPortfolios.getPID(accessToken);
 
 
-        String test = "{ \"sourceAccountNumber\": \"12345\",\n" +
-                "  \"portfolioId\":\"" +ID+ "\",\n" +
-                "  \"sourceAccountName\": \"Gab\",\n" +
-                "  \"beneficiaryAccountNumber\": \"1234567\",\n" +
-                "  \"beneficiaryName\": \"Gab\",\n" +
-                "  \"amount\": 5.0,\n" +
-                "  \"description\": \"This is the description of the payment\"}";
+        String paymentData = "{ \"info\" }";
 
-        JSONObject data = new JSONObject(test);
-        HttpURLConnection conn = Utils.POST( "/v1/payments", data, accessToken);
+        //System.out.println(test.toString());
+        JSONObject data = new JSONObject(paymentData);
+        HttpURLConnection conn = Payment.postPayment( "/payments", data, accessToken);
+        String accountID = AccountsPortfolios.getAID(accessToken);
         Assert.assertEquals(conn.getResponseCode(), 200);
+    }
+
+    @Test
+    public void makePaymentWrongAccountNumber() throws Exception {
+        String accessToken = Login.getAccessToken(user, password);
+        String portfolioID = AccountsPortfolios.getPID(accessToken);
+
+
+        String paymentData = "{\"info\" }";
+
+        //System.out.println(test.toString());
+        JSONObject data = new JSONObject(paymentData);
+        HttpURLConnection conn = Payment.postPayment( "/payments", data, accessToken);
+        Assert.assertEquals(conn.getResponseCode(), 500);
+    }
+
+    @Test
+    public void makePaymentBiggerAmountThanBalance() throws Exception {
+        String accessToken = Login.getAccessToken(user, password);
+        String portfolioID = AccountsPortfolios.getPID(accessToken);
+
+
+        String paymentData = "{\"info\" }";
+
+        //System.out.println(test.toString());
+        JSONObject data = new JSONObject(paymentData);
+        HttpURLConnection conn = Payment.postPayment( "/payments", data, accessToken);
+        Assert.assertEquals(conn.getResponseCode(), 500);
     }
 }
