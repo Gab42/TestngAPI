@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 public class AccountsPortfolios {
     // GET ID for first portfolio of user
     public static String getPID(String accessToken) throws IOException, JSONException {
-        HttpURLConnection conn = Utils.openConn("/v1/portfolios");
+        HttpURLConnection conn = Utils.openConn("/api/p");
         conn.setRequestProperty("Authorization","Bearer "+accessToken);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -20,14 +20,14 @@ public class AccountsPortfolios {
         }
 
         String[] response = sb.toString().split("\"" );
-        String portfolioID = response[5];
-        return portfolioID;
+        String id = response[5];
+        return id;
     }
 
     // GET ID for account of user
     public static String getAID(String accessToken) throws IOException, JSONException {
         String portfolioID = getPID(accessToken);
-        HttpURLConnection conn = Utils.openConn("/v1/accounts?portfolio_id=" + portfolioID);
+        HttpURLConnection conn = Utils.openConn("/api/p?id=" + id);
         conn.setRequestProperty("Authorization","Bearer "+accessToken);
 
         BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
