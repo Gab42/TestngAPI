@@ -12,7 +12,7 @@ public class PaymentTest {
     @Test
     public void makePaymentSuccessful() throws Exception {
         String accessToken = Login.getAccessToken(user, password);
-        String portfolioID = AccountsPortfolios.getPID(accessToken);
+        String id = Accounts.getPID(accessToken);
 
 
         String paymentData = "{ \"info\" }";
@@ -27,7 +27,7 @@ public class PaymentTest {
     @Test
     public void makePaymentWrongAccountNumber() throws Exception {
         String accessToken = Login.getAccessToken(user, password);
-        String portfolioID = AccountsPortfolios.getPID(accessToken);
+        String id = Accounts.getPID(accessToken);
 
 
         String paymentData = "{\"info\" }";
@@ -41,7 +41,7 @@ public class PaymentTest {
     @Test
     public void makePaymentBiggerAmountThanBalance() throws Exception {
         String accessToken = Login.getAccessToken(user, password);
-        String portfolioID = AccountsPortfolios.getPID(accessToken);
+        String id = Accounts.getPID(accessToken);
 
 
         String paymentData = "{\"info\" }";
