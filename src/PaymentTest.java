@@ -5,8 +5,8 @@ import org.testng.annotations.Test;
 import java.net.HttpURLConnection;
 
 public class PaymentTest {
-    String user = "ChgDilyana";
-    String password = "Password.1";
+    String user = "Gab";
+    String password = "Password";
 
 
     @Test
